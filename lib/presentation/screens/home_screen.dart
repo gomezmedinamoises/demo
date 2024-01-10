@@ -16,7 +16,7 @@ class HomeScreen extends ConsumerWidget {
     final auth = ref.read(firebaseAuthProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Mis reportes'),
         actions: [
           IconButton(
             onPressed: () {
