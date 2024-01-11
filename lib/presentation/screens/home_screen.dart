@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../routing/app_route_enum.dart';
+import '../../core/routing/app_route_enum.dart';
 import '../providers.dart';
 
 class HomeScreen extends ConsumerWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/providers.dart';
-import '../presentation/screens/create_report_screen.dart';
-import '../presentation/screens/custom_profile_screen.dart';
-import '../presentation/screens/custom_sign_in_screen.dart';
-import '../presentation/screens/home_screen.dart';
+import '../../presentation/providers.dart';
+import '../../presentation/screens/create_report_screen.dart';
+import '../../presentation/screens/custom_profile_screen.dart';
+import '../../presentation/screens/custom_sign_in_screen.dart';
+import '../../presentation/screens/home_screen.dart';
 import 'app_route_enum.dart';
 import 'go_router_refresh_stream.dart';
 import 'route_paths.dart';

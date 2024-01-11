@@ -55,7 +55,7 @@ class ESLocalizations extends DefaultLocalizations {
   String get emailInputLabel => "Correo electrónico";
 
   @override
-  String get emailIsRequiredErrorText => "Correo electrónico es requerido";
+  String get emailIsRequiredErrorText => "Se requiere correo electrónico";
 
   @override
   String get emailLinkSignInButtonLabel => "Iniciar sesión con enlace";

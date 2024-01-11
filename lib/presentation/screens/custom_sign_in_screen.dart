@@ -14,6 +14,33 @@ class CustomSignInScreen extends ConsumerWidget {
     final authProviders = ref.watch(authProvidersProvider);
     return Scaffold(
       body: SignInScreen(
+        showPasswordVisibilityToggle: true,
+        styles: const {
+          EmailFormStyle(
+            signInButtonVariant: ButtonVariant.filled,
+            inputDecorationTheme: InputDecorationTheme(),
+          )
+        },
+        headerBuilder: (context, constraints, _) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: 100,
+              child: Container(
+                width: 150.0,
+                height: 150.0,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/gobernapp-logo.png'),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
         providers: authProviders,
       ),
     );

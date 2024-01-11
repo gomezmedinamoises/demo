@@ -1,11 +1,12 @@
-import 'package:demo/localizations/es_localizations.dart';
+import 'package:demo/core/style/palette_colors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'firebase_options.dart';
-import 'routing/app_router.dart';
+import 'core/localizations/es_localizations.dart';
+import 'core/routing/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +32,7 @@ class MyApp extends ConsumerWidget {
       routerConfig: goRouter,
       title: 'Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        colorScheme: ColorScheme.fromSeed(seedColor: PaletteColors.blue),
         useMaterial3: true,
       ),
     );
