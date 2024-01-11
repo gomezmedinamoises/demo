@@ -31,10 +31,13 @@ class ReportTable extends StatelessWidget {
 }
 
 TextStyle titlesStyle = const TextStyle(
+  color: PaletteColors.grey008,
   fontWeight: FontWeight.bold,
   fontSize: 15.0,
   letterSpacing: 1.5,
 );
+
+TextStyle dataTextStyles = const TextStyle(color: PaletteColors.grey008);
 
 List<DataColumn> columns = [
   DataColumn(
@@ -62,16 +65,23 @@ List<DataRow> getRows() {
     (RowData row) {
       return DataRow(
         cells: [
-          DataCell(Text(row.date)),
+          DataCell(Text(
+            row.date,
+            style: dataTextStyles,
+          )),
           DataCell(Text(
             row.title,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
+            style: dataTextStyles,
           )),
           DataCell(
             Column(
               children: [
-                Text(row.status),
+                Text(
+                  row.status,
+                  style: dataTextStyles,
+                ),
                 const SizedBox(width: 5),
                 Container(
                   width: 15,
