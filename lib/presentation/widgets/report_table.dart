@@ -9,10 +9,8 @@ class ReportTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final _data = MyDataTableSource();
-
     return Container(
-      color: Colors.white,
+      color: PaletteColors.grey001,
       child: SingleChildScrollView(
         child: Card(
           surfaceTintColor: Colors.white,
@@ -47,7 +45,7 @@ List<DataColumn> columns = [
   ),
   DataColumn(
     label: Text(
-      'Titulo',
+      'Título',
       style: titlesStyle,
     ),
   ),
