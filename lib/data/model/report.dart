@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class Report extends Equatable {
@@ -7,7 +8,8 @@ class Report extends Equatable {
   final String userId;
   final String title;
   final String description;
-  final DateTime createdAt;
+  final DateTime? createdAt;
+  final String status;
 
   const Report({
     required this.id,
@@ -15,17 +17,20 @@ class Report extends Equatable {
     required this.title,
     required this.description,
     required this.createdAt,
+    required this.status,
   });
 
-  factory Report.fromMap(Map<String, dynamic> map) {
-    //final createdAt = map['createdAt'];
+  factory Report.fromMap(Map<String, dynamic>? map) {
     return Report(
-      id: map['id'] as String,
-      userId: map['userId'] as String,
-      title: map['title'] as String,
-      description: map['description'] as String,
-      createdAt: map['createdAt'] as DateTime,
-      //createdAt: createdAt != null ? (createdAt as Timestamp).toDate() : DateTime.now(),
+      id: map?['id'] ?? '',
+      userId: map?['userId'] ?? '',
+      title: map?['title'] ?? '',
+      description: map?['description'] ?? '',
+      //createdAt: map?['createdAt'] ?? '',
+      status: map?['status'] ?? '',
+      createdAt: map?['createdAt'] != null
+          ? (map?['createdAt'] as Timestamp).toDate()
+          : null,
     );
   }
 
@@ -34,9 +39,11 @@ class Report extends Equatable {
         'userId': userId,
         'title': title,
         'description': description,
-        'createdAt': createdAt,
+        if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
+        'status': status,
       };
 
   @override
-  List<Object?> get props => [id, userId, title, description];
+  List<Object?> get props =>
+      [id, userId, title, description, createdAt, status];
 }
