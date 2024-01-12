@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/core/utils/status_report.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/style/palette_colors.dart';
@@ -65,9 +66,9 @@ class ReportTable extends StatelessWidget {
                             Container(
                               width: 15,
                               height: 15,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.yellow,
+                                color: getColorForStatusReport(report.status),
                               ),
                             ),
                           ],
@@ -202,6 +203,17 @@ List<DataColumn> columns = [
     ),
   ),
 ];
+
+Color getColorForStatusReport(String status) {
+  switch (status) {
+    case StatusReport.open:
+      return Colors.yellow;
+    case StatusReport.closed:
+      return Colors.green;
+    default:
+      return Colors.yellow;
+  }
+}
 
  // Don't remove this code
 /*List<DataRow> getRows() {
