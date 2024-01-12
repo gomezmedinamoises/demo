@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/data/report_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' as ui_auth;
@@ -18,4 +19,8 @@ final firebaseFirestoreProvider = Provider<FirebaseFirestore>((ref) {
 
 final firebaseStorageProvider = Provider<FirebaseStorage>((ref) {
   return FirebaseStorage.instance;
+});
+
+final reportRepositoryProvider = Provider<ReportRepository>((ref) {
+  return ReportRepository(FirebaseFirestore.instance);
 });

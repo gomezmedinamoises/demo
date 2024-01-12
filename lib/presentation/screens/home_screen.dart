@@ -37,17 +37,20 @@ class HomeScreen extends ConsumerWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: ReportsSection(),
-          ),
-          Expanded(
-            flex: 1,
-            child: NewsfeedSection(),
-          ),
-        ],
+      body: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: ReportsSection(),
+            ),
+            Expanded(
+              flex: 1,
+              child: NewsfeedSection(),
+            ),
+          ],
+        ),
       ),
     );
   }

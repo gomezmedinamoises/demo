@@ -18,8 +18,7 @@ class CustomSignInScreen extends ConsumerWidget {
         styles: const {
           EmailFormStyle(
             signInButtonVariant: ButtonVariant.filled,
-            inputDecorationTheme: InputDecorationTheme(),
-          )
+          ),
         },
         headerBuilder: (context, constraints, _) {
           return Padding(
