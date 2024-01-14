@@ -1,4 +1,3 @@
-import 'package:demo/data/model/report.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -204,7 +203,7 @@ class CreateReportScreen extends ConsumerWidget {
                     const SizedBox(height: 16),
 
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         try {
                           var uuid = const Uuid();
                           reportRepository.createReport(
@@ -212,14 +211,8 @@ class CreateReportScreen extends ConsumerWidget {
                             user.uid,
                             reportTitle.text,
                             reportDescription.text,
-                            imageUrls,
+                            await imageUrls,
                           );
-                          /*reportRepository.createReport(
-                              uuid.v4(),
-                              user.uid,
-                              reportTitle.text,
-                              reportDescription.text,
-                              );*/
                           context.goNamed(AppRoute.home.name);
                         } catch (error) {
                           ScaffoldMessenger.of(context).showSnackBar(
