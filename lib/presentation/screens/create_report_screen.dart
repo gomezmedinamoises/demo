@@ -19,6 +19,8 @@ class CreateReportScreen extends ConsumerWidget {
     final reportRepository = ref.watch(reportRepositoryProvider);
     final user = ref.read(firebaseAuthProvider).currentUser;
     final images = ref.watch(imagePickerProvider);
+    final imageUrls =
+        ref.read(imageRepositoryProvider).uploadImages(images, user!.uid);
 
     final TextEditingController reportTitle = TextEditingController();
     final TextEditingController reportDescription = TextEditingController();
@@ -201,14 +203,15 @@ class CreateReportScreen extends ConsumerWidget {
                     const SizedBox(height: 16),
 
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         try {
                           var uuid = const Uuid();
                           reportRepository.createReport(
                             uuid.v4(),
-                            user!.uid,
+                            user.uid,
                             reportTitle.text,
                             reportDescription.text,
+                            await imageUrls,
                           );
                           context.goNamed(AppRoute.home.name);
                         } catch (error) {

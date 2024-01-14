@@ -7,6 +7,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart' as ui_auth;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/utils/image_picker_notifier.dart';
+import '../data/image_repository.dart';
 import '../data/report_repository.dart';
 
 final authProvidersProvider = Provider<List<ui_auth.AuthProvider>>((ref) {
@@ -26,7 +27,13 @@ final firebaseStorageProvider = Provider<FirebaseStorage>((ref) {
 });
 
 final reportRepositoryProvider = Provider<ReportRepository>((ref) {
-  return ReportRepository(FirebaseFirestore.instance);
+  return ReportRepository(
+    FirebaseFirestore.instance,
+  );
+});
+
+final imageRepositoryProvider = Provider<ImageRepository>((ref) {
+  return ImageRepository(FirebaseStorage.instance);
 });
 
 final imagePickerProvider =
