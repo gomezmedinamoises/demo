@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/data/model/image_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' as ui_auth;
@@ -26,7 +27,13 @@ final firebaseStorageProvider = Provider<FirebaseStorage>((ref) {
 });
 
 final reportRepositoryProvider = Provider<ReportRepository>((ref) {
-  return ReportRepository(FirebaseFirestore.instance);
+  return ReportRepository(
+    FirebaseFirestore.instance,
+  );
+});
+
+final imageRepositoryProvider = Provider<ImageRepository>((ref) {
+  return ImageRepository(FirebaseStorage.instance);
 });
 
 final imagePickerProvider =
