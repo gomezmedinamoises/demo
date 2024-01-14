@@ -19,10 +19,10 @@ class ReportTable extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
-        color: PaletteColors.grey001,
+        color: PaletteColors.grey003,
         child: SingleChildScrollView(
           child: Card(
-            surfaceTintColor: Colors.white,
+            surfaceTintColor: PaletteColors.white,
             shadowColor: PaletteColors.blue,
             elevation: 5.0,
             child: DataTable(

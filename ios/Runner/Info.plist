@@ -22,6 +22,16 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Usage of photos and gallery</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Usage of photos and gallery</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Usage of photos and gallery</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Usage of locations</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Usage of locations</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
