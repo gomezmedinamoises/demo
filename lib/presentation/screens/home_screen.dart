@@ -19,6 +19,7 @@ class HomeScreen extends ConsumerWidget {
     final auth = ref.read(firebaseAuthProvider);
 
     return Scaffold(
+      backgroundColor: PaletteColors.grey003,
       appBar: AppBar(
         backgroundColor: PaletteColors.blue,
         title: const Text(

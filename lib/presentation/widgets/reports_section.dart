@@ -22,7 +22,7 @@ class ReportsSection extends ConsumerWidget {
         .reportsQuery(currentUser?.uid ?? '');
 
     return Scaffold(
-      backgroundColor: PaletteColors.grey001,
+      backgroundColor: PaletteColors.grey003,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
