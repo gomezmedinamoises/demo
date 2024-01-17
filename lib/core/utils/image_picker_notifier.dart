@@ -19,7 +19,7 @@ class ImagePickerNotifier extends StateNotifier<List<File>> {
     state = state.where((element) => element != image).toList();
   }
 
-  void removeImages(List<File> imagesToRemove) {
-    state.removeWhere((element) => imagesToRemove.contains(element));
+  void clearImages() {
+    state = [];
   }
 }

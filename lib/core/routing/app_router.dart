@@ -24,7 +24,7 @@ List<RouteBase> routes = [
       GoRoute(
         path: createReport,
         name: AppRoute.createReport.name,
-        builder: (context, state) => const CreateReportScreen(),
+        builder: (context, state) => CreateReportScreen(),
       )
     ],
   ),
@@ -35,25 +35,27 @@ List<RouteBase> routes = [
   ),
 ];
 
-final goRouterProvider = Provider<GoRouter>((ref) {
-  final firebaseAuth = ref.watch(firebaseAuthProvider);
-  return GoRouter(
-    initialLocation: signIn,
-    debugLogDiagnostics: true,
-    redirect: (context, state) {
-      final isLoggedIn = firebaseAuth.currentUser != null;
-      if (isLoggedIn) {
-        if (state.uri.path == signIn) {
-          return home;
+final goRouterProvider = Provider<GoRouter>(
+  (ref) {
+    final firebaseAuth = ref.watch(firebaseAuthProvider);
+    return GoRouter(
+      initialLocation: signIn,
+      debugLogDiagnostics: true,
+      redirect: (context, state) {
+        final isLoggedIn = firebaseAuth.currentUser != null;
+        if (isLoggedIn) {
+          if (state.uri.path == signIn) {
+            return home;
+          }
+        } else {
+          if (state.uri.path.startsWith(home)) {
+            return signIn;
+          }
         }
-      } else {
-        if (state.uri.path.startsWith(home)) {
-          return signIn;
-        }
-      }
-      return null;
-    },
-    refreshListenable: GoRouterRefreshStream(firebaseAuth.authStateChanges()),
-    routes: routes,
-  );
-});
+        return null;
+      },
+      refreshListenable: GoRouterRefreshStream(firebaseAuth.authStateChanges()),
+      routes: routes,
+    );
+  },
+);
