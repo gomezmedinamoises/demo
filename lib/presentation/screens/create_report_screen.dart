@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/routing/app_route_enum.dart';
 import '../../core/style/palette_colors.dart';
 import '../providers.dart';
-import '../widgets/image_card.dart';
+import '../widgets/load_photos_section.dart';
 
 class CreateReportScreen extends ConsumerWidget {
-  const CreateReportScreen({
+  CreateReportScreen({
     super.key,
   });
+
+  final TextEditingController reportTitle = TextEditingController();
+  final TextEditingController reportDescription = TextEditingController();
+
+  bool isSendingReport = false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,9 +25,6 @@ class CreateReportScreen extends ConsumerWidget {
     final images = ref.watch(imagePickerProvider);
     final imageUrls =
         ref.read(imageRepositoryProvider).uploadImages(images, user!.uid);
-
-    final TextEditingController reportTitle = TextEditingController();
-    final TextEditingController reportDescription = TextEditingController();
 
     return Scaffold(
       backgroundColor: PaletteColors.grey003,
@@ -110,95 +111,9 @@ class CreateReportScreen extends ConsumerWidget {
                     const SizedBox(height: 20),
                     const Divider(thickness: 1.0),
                     const SizedBox(height: 8),
+
                     // Load photo section
-
-                    const Text(
-                      'Cargar fotos',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: images.length >= 3
-                                ? null
-                                : () {
-                                    ref
-                                        .read(imagePickerProvider.notifier)
-                                        .pickImage(ImageSource.camera);
-                                  },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color?>(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.disabled)) {
-                                    return PaletteColors.grey005;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            child: const Text(
-                              'Cámara',
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 24),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: images.length >= 3
-                                ? null
-                                : () {
-                                    ref
-                                        .read(imagePickerProvider.notifier)
-                                        .pickImage(ImageSource.gallery);
-                                  },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color?>(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.disabled)) {
-                                    return PaletteColors.grey005;
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            child: const Text(
-                              'Galería',
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: images
-                            .map(
-                              (file) => ImageCard(
-                                file: file,
-                                onRemove: () => ref
-                                    .read(imagePickerProvider.notifier)
-                                    .removeImage(file),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ),
+                    const LoadPhotosSection(),
 
                     const SizedBox(height: 16),
 
@@ -213,6 +128,7 @@ class CreateReportScreen extends ConsumerWidget {
                             reportDescription.text,
                             await imageUrls,
                           );
+                          ref.read(imagePickerProvider.notifier).clearImages();
                           context.goNamed(AppRoute.home.name);
                         } catch (error) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -227,7 +143,7 @@ class CreateReportScreen extends ConsumerWidget {
                         'Enviar reporte',
                         style: TextStyle(fontSize: 18.0),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

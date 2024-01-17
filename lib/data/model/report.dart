@@ -36,7 +36,7 @@ class Report extends Equatable {
       status: map?['status'] ?? '',
       createdAt: map?['createdAt'] != null
           ? (map?['createdAt'] as Timestamp).toDate()
-          : null,
+          : DateTime.now(),
       imageUrls: files,
     );
   }
