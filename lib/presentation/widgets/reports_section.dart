@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/presentation/widgets/geolocation_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -82,6 +83,8 @@ class ReportsSection extends ConsumerWidget {
         backgroundColor: PaletteColors.blue,
         onPressed: () {
           context.goNamed(AppRoute.createReport.name);
+          /*Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => GeoLocationSection()));*/
         },
         child: const Icon(
           Icons.add,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
@@ -8,6 +9,7 @@ import '../../core/style/palette_colors.dart';
 import '../providers.dart';
 import '../widgets/load_photos_section.dart';
 
+// ignore: must_be_immutable
 class CreateReportScreen extends ConsumerWidget {
   CreateReportScreen({
     super.key,
@@ -25,6 +27,8 @@ class CreateReportScreen extends ConsumerWidget {
     final images = ref.watch(imagePickerProvider);
     final imageUrls =
         ref.read(imageRepositoryProvider).uploadImages(images, user!.uid);
+
+    final geolocationRepository = ref.read(geolocationProvider);
 
     return Scaffold(
       backgroundColor: PaletteColors.grey003,
@@ -51,7 +55,7 @@ class CreateReportScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Escribe tu reporte',
+                      'Escribir reporte',
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -115,11 +119,123 @@ class CreateReportScreen extends ConsumerWidget {
                     // Load photo section
                     const LoadPhotosSection(),
 
+                    const SizedBox(height: 8),
+
+                    //GeoLocationSection(),
+                    const Divider(thickness: 1.0),
+                    const SizedBox(height: 8),
+
+                    const Text(
+                      'Agregar localización',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'LAT: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: PaletteColors.grey007),
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                    '',
+                                    softWrap: true,
+                                  ))
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'LON: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: PaletteColors.grey007),
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                    '',
+                                    softWrap: true,
+                                  ))
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'DIR: ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: PaletteColors.grey007),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      '',
+                                      softWrap: true,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0,
+                                  vertical: 10.0), // Aumenta el padding
+                              textStyle: const TextStyle(fontSize: 18.0),
+                            ).copyWith(alignment: Alignment.center),
+                            onPressed: () async {
+                              final currentPosition =
+                                  await geolocationRepository
+                                      .getCurrentLocation(context);
+
+                              geolocationRepository
+                                  .getAddressFromCoordinates(currentPosition);
+                            },
+                            child: const Text(
+                              'Obtener localización',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 40),
 
                     ElevatedButton(
                       onPressed: () async {
                         try {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: PaletteColors.grey003,
+                                  color: PaletteColors.blue,
+                                ),
+                              );
+                            },
+                          );
                           var uuid = const Uuid();
                           reportRepository.createReport(
                             uuid.v4(),
@@ -129,6 +245,7 @@ class CreateReportScreen extends ConsumerWidget {
                             await imageUrls,
                           );
                           ref.read(imagePickerProvider.notifier).clearImages();
+                          Navigator.of(context).pop();
                           context.goNamed(AppRoute.home.name);
                         } catch (error) {
                           ScaffoldMessenger.of(context).showSnackBar(

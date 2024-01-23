@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/data/geolocation_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart' as ui_auth;
@@ -39,4 +40,8 @@ final imageRepositoryProvider = Provider<ImageRepository>((ref) {
 final imagePickerProvider =
     StateNotifierProvider<ImagePickerNotifier, List<File>>((ref) {
   return ImagePickerNotifier();
+});
+
+final geolocationProvider = Provider<GeolocationRepository>((ref) {
+  return GeolocationRepository();
 });
