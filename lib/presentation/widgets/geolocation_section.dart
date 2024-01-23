@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:demo/core/style/palette_colors.dart';
 import 'package:demo/presentation/providers.dart';
 import 'package:flutter/material.dart';
